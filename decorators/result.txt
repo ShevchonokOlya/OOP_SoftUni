@@ -1,0 +1,1 @@
+Function add was called. Result: 4
