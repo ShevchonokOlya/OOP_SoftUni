@@ -2,7 +2,11 @@ from abc import ABC, abstractmethod
 
 
 class BaseWaiter(ABC):
-    def __init__(self, name: str, hours_worked: int):
+    name: str
+    hours_worked: int
+    HOURLY_RATE: int
+
+    def __init__(self, name: str, hours_worked: int) -> None:
         self.name = name
         self.hours_worked = hours_worked
 
@@ -12,9 +16,11 @@ class BaseWaiter(ABC):
 
     @name.setter
     def name(self, value):
-        if not (3 <= len(value) <= 50):
+        if not isinstance(value, str) or not (3 <= len(value) <= 50):
             raise ValueError("Waiter name must be between 3 and 50 characters in length!")
+
         self.__name = value
+
 
     @property
     def hours_worked(self):
@@ -22,17 +28,18 @@ class BaseWaiter(ABC):
 
     @hours_worked.setter
     def hours_worked(self, value):
-        if value < 0:
+        if value < 0 :
             raise ValueError("Cannot have negative hours worked!")
         self.__hours_worked = value
 
-    @abstractmethod
-    def calculate_earnings(self):
-        pass
+
+    def calculate_earnings(self)-> float:
+        return self.hours_worked * self.HOURLY_RATE
 
     @abstractmethod
     def report_shift(self):
         pass
 
     def __str__(self):
-        return f"Name: {self.name}, Total earnings: ${self.calculate_earnings():.2f}"
+        total_earnings = self.calculate_earnings()
+        return f"Name: {self.name}, Total earnings: ${total_earnings:.2f}"

@@ -1,4 +1,4 @@
-class SeniorStudent:
+class SeniorStudent: 
     def __init__(self, student_id: str, name: str, student_gpa: float):
         self.student_id = student_id
         self.name = name
